@@ -19,6 +19,11 @@
         <bootstrap.version>4.3.0</bootstrap.version>
         <jquery.version>3.${jaxb-api.version}</jquery.version>
         <jaxb-api.version>2.1</jaxb-api.version>
+        <hibernate-core.version>5.2.9.Final</hibernate-core.version>
+        <mail.version>1.4</mail.version>
+        <hibernate-validator.version>6.1.1.Final</hibernate-validator.version>
+        <log4j-1.2-api.version>2.2</log4j-1.2-api.version>
+        <postgresql.version>4${log4j-1.2-api.version}.8</postgresql.version>
         <maven-war-plugin.version>3.2.0</maven-war-plugin.version>
     </properties>
 
@@ -122,6 +127,60 @@
             <version>${jquery.version}</version>
         </dependency>
 
+        <!--__________________________postgresql_____________________________________________-->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
+
+
+        <!--__________________________hibernate_____________________________________________-->
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb-api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring-webmvc.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${log4j-1.2-api.version}.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-tools</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>${mail.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
 
 
 
