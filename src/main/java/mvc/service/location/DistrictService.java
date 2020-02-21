@@ -11,3 +11,4 @@ public interface DistrictService extends Service<District> {
     List<District> getDistrictListByTown(Town town);
     List<DistrictDto> getDistrictDtoListByTown(Town town);
 }
+
