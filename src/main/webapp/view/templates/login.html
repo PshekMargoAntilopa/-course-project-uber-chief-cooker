@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/inputForm.css}">
+</head>
+
+
+<body class="FonL app-contact-body">
+<div class="container-profile">
+    <div class="inner-profile">
+
+
+        <form th:action="@{/signIn}" th:object="${user}" method="post">
+            <div id="columnRight" class="column-profile-right">
+                <label th:if="${loginError == true}"  class="row justify-content-center label-login" style="margin-top: 120px; color: red" th:text="#{text.Incorrect_login_or_password}"></label>
+                <label th:if="${loginError == false}" class="row justify-content-center label-login" style="margin-top: 120px" th:text="#{text.I_have_an}">I have an
+                    account</label>
+                <div class="row justify-content-center">
+
+
+                    <input type="name" th:value="${user.email}" name="email" class="form-control input-login"
+                           aria-describedby="emailHelp" th:placeholder="#{text.Enter_email}" required>
+
+
+
+
+                    <input type="password" th:value="${user.password}" name="password" class="form-control input-login"
+                           th:placeholder="#{text.Enter_password}" required>
+
+                </div>
+
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-classic save"
+                            style="display: inline-block; margin-top: 12px;  width : 250px;" th:text="#{text.LOGIN}">LOGIN
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="column-profile">
+            <form th:action="@{/registration/}" th:object="${user}" method="post" >
+                <div id="registrationDiv" style=" display: none">
+
+
+
+
+                    <label  class="row justify-content-center label-login" style="margin-top: 120px" th:text="#{text_I_dont_have}">I don't
+                        have an
+                        account yet</label>
+                    <div class="row justify-content-center from-group cook-registr">
+                        <input type="text" id="inputName" th:value="${user.name}" th:name="name" class="form-control input-login"
+                               th:placeholder="#{text.Your_first_name}" required/>
+                    </div>
+
+
+                    <div class="row justify-content-center from-group   cook-registr">
+                        <input type="text" id="inputSurname"  th:value="${user.surname}" th:name="surname" class="form-control input-login"
+                               th:placeholder="#{text.Your_last_name}" required/>
+                    </div>
+
+                    <div class="row justify-content-center from-group  -right" style="margin-bottom: 30px">
+                        <input type="text" id="inputMobile" th:value="${user.mobile}" th:name="mobile" pattern="\+*[0-9]+" class="form-control input-login"
+                               th:placeholder="#{text.Your_Phone}"  required/>
+                    </div>
+
+                    <div class="row justify-content-center from-group   cook-registr" style="margin-top: -14.5px">
+
+                        <input type="email" id="inputEmail" th:field="${user.email}" class="form-control input-login"
+                               th:placeholder="#{text.Enter_email}" required>
+
+
+                    </div>
+                    <div class="row justify-content-center from-group   cook-registr">
+
+                        <input type="password" id="inputPassword" th:value="${user.password}" th:name="password"
+                               class="form-control input-login"
+                               th:placeholder="#{text.Enter_password}" required>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row justify-content-center">
+                    <button id="singUp" type="submit" class="btn btn-classic save"
+                            style="display: inline-block;  width : 250px; background-color: #7f262a" th:text="#{text.SING_UP}">SING UP
+                    </button>
+                </div>
+
+                <div class="row justify-content-center">
+                    <a class="link-login" th:href="${(#mvc.url('RC#showRegistrationFormForCook')).build()}"
+                       th:text="#{text.iamchef}" style="text-decoration: underline;
+  text-decoration-line: underline;
+  text-decoration-style: initial;
+  text-decoration-color: initial;">I'm a chef and would like to join your team</a>
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+</body>
+
+<label id="1" style="display: none"  th:text="#{text.please_fill_out_this_field}"></label>
+<label id="2" style="display: none"  th:text="#{text.does_not_match_type}"></label>
+
+</html>
+
+
+
+<script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+
+<script>
+
+    $('input').on('input invalid', function() {
+        this.setCustomValidity('')
+        if (this.validity.valueMissing) {
+            this.setCustomValidity($("#1").text())
+        }
+        if (this.validity.typeMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+        if (this.validity.patternMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+    })
+    var singUp = document.getElementById('singUp');
+    var registrationDiv = document.getElementById('registrationDiv');
+    var columnRight = document.getElementById('columnRight');
+
+    registrationDiv.setAttribute("style", 'display: initial');
+    singUp.setAttribute("style", "margin-top: 10px; display: inline-block;  width : 250px; background-color: #7f262a");
+    columnRight.setAttribute("style", "height: 512px");
+</script>
+
+
+
