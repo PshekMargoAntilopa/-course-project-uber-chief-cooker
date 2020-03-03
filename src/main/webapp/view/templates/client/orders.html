@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <div th:replace="fragments/header :: header-menu"></div>
+</head>
+<body class="FonL app-contact-body">
+<div th:replace="fragments/clientNavbar :: clientNavbar"></div>
+
+<div class="row justify-content-center" style="margin-top: 100px">
+    <div class="list-group" style="width: 600px">
+
+        <div th:if="${orders.empty == true}" class="first-div-label" style="margin: auto; margin-top:15%; width: 100%">
+            <label class="first-label"  th:text="#{text.you_have_no_orders}" style="width: 100%; font-size: 70px; color: white">You have no orders</label>
+        </div>
+
+        <form action="#" th:action="@{/clientOrder}" method="post">
+        <button href="#" th:value="${order.id}" name = "orderId" th:each="order, item : ${orders}"
+           class="list-group-item list-group-item-action flex-column align-items-start">
+            <input type="hidden" id="countOfOrder" th:value="${orders.size()}">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="mb-1">
+                    <label class="main-label" th:text="#{${'text.day.' + order.date.dayOfWeek}}"
+                           style="color: #333333; font-size: 20px">Friday,
+                        January 17th 2020 at 2:00 pm</label>
+                    <label class="main-label"
+                           th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}"
+                           style="color: #333333; font-size: 20px"></label>
+                    <label class="main-label" th:text="#{text.at}" style="color: #333333; font-size: 20px"></label>
+                    <label class="main-label" th:text="${order.eventTime}"
+                           style="color: #333333; font-size: 20px"></label>
+                </div>
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary" th:text="#{text.closed}">closed</span></small>
+            </div>
+            <p class="mb-1" th:text="${order.menu.name}">Draniki po yzbecki</p>
+            <small>
+                <label th:text="#{text.price}">Price:</label>
+                <label th:id="${'totalPrice' + item.index}"></label>
+                <label> руб.</label>
+                <label style="visibility: hidden" th:text="${order.menu.price}" th:id="${'unitPrice' + item.index}"/>
+                <label style="visibility: hidden" th:text="${order.countOfGuests}" th:id="${'countX' + item.index}"/>
+            </small>
+        </button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+
+    const countOfOrder = document.getElementById('countOfOrder');
+    for(var i = 0; i <  countOfOrder.value; i++){
+        const unitPrice = document.getElementById('unitPrice' + i);
+        const countX = document.getElementById('countX'  + i);
+        const totalPrice = document.getElementById('totalPrice' + i);
+
+        unitPrice.innerHTML = unitPrice.innerHTML.split('.')[0];
+
+        totalPrice.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML) + '');
+    }
+
+
+
+</script>
+
+</body>
+</html>
