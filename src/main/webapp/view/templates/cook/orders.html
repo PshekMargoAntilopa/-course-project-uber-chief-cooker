@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <div th:replace="fragments/header :: header-menu"></div>
+</head>
+<body class="FonL app-contact-body">
+<div th:replace="fragments/cookNavbar :: cookNavbar"></div>
+
+<div class="row justify-content-center" style="margin-top: 100px">
+    <div class="list-group" style="width: 600px">
+        <form action="#" th:action="@{/order}" method="post">
+        <button href="#" th:value="${order.id}" name = "orderId" th:each="order, item : ${orders}"
+           class="list-group-item list-group-item-action flex-column align-items-start">
+            <input type="hidden" id="countOfOrder" th:value="${orders.size()}">
+            <div class="d-flex w-100 justify-content-between">
+                <div class="mb-1">
+                    <label class="main-label" th:text="#{${'text.day.' + order.date.dayOfWeek}}"
+                           style="color: #333333; font-size: 20px">Friday,
+                        January 17th 2020 at 2:00 pm</label>
+                    <label class="main-label"
+                           th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}"
+                           style="color: #333333; font-size: 20px"></label>
+                    <label class="main-label" th:text="#{text.at}" style="color: #333333; font-size: 20px"></label>
+                    <label class="main-label" th:text="${order.eventTime}"
+                           style="color: #333333; font-size: 20px"></label>
+                </div>
+<!--                281-->
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'NEW'}"> <span class="badge badge-success" th:text="#{text.new}">new</span></small>
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'IN_PROCESS'}"> <span class="badge badge-pill badge-info" th:text="#{text.in_process}">in process</span></small>
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary" th:text="#{text.closed}">closed</span></small>
+            </div>
+            <p class="mb-1" th:text="${order.menu.name}">Draniki po yzbecki</p>
+            <small>
+                <label th:text="#{order.income}">Income:</label>
+                <label th:id="${'totalPrice' + item.index}"></label>
+                <label th:text="#{text.rub}"> руб.</label>
+                <label style="visibility: hidden" th:text="${order.menu.price}" th:id="${'unitPrice' + item.index}"/>
+                <label style="visibility: hidden" th:text="${order.countOfGuests}" th:id="${'countX' + item.index}"/>
+            </small>
+        </button>
+        </form>
+    </div>
+</div>
+<div th:if="${orders.empty == true}" class="row justify-content-center" style="margin: auto; margin-top:15%; width: 100%">
+    <label class="first-label"  th:text="#{text.No_new_bookings_to_process}" style="margin: auto; font-size: 70px; color: white">No new bookings to process</label>
+</div>
+<form th:action="@{/orders/page}" th:object="${page}" method="post">
+<div th:if="${orders.empty == false}" class="row justify-content-center" style="margin-top: 30px">
+        <div class="pagination pagination-centered">
+            <ul class="pagination">
+
+                <li class="page-item" id="previous" ><button type="submit" th:name="previous" th:value="${page}" th:text="#{text.Previous}" class="page-link">Previous</button></li>
+                <li class="page-item" id="next" ><button type="submit" th:name="next" th:value="${page}" th:text="#{text.next}" class="page-link" style="width: 85.63px; text-align: center">Next</button></li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
+</form>
+
+
+
+
+<script>
+
+
+    const countOfOrder = document.getElementById('countOfOrder');
+    for(var i = 0; i <  countOfOrder.value; i++){
+        const unitPrice = document.getElementById('unitPrice' + i);
+        const countX = document.getElementById('countX'  + i);
+        const totalPrice = document.getElementById('totalPrice' + i);
+
+        unitPrice.innerHTML = unitPrice.innerHTML.split('.')[0];
+
+        totalPrice.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML) + '');
+    }
+
+</script>
+
+</body>
+</html>
