@@ -22,7 +22,7 @@
         <jaxb-api.version>2.1</jaxb-api.version>
         <hibernate-core.version>5.2.9.Final</hibernate-core.version>
         <mail.version>1.4</mail.version>
-        <hibernate-validator.version>6.1.1.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <log4j-1.2-api.version>2.2</log4j-1.2-api.version>
         <postgresql.version>4${log4j-1.2-api.version}.8</postgresql.version>
         <maven-war-plugin.version>3.2.0</maven-war-plugin.version>
